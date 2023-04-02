@@ -1,4 +1,5 @@
 package Question09;
+
 import java.util.Scanner;
 
 public class Question09 {
@@ -7,9 +8,7 @@ public class Question09 {
 		Scanner scan = new Scanner(System.in);
 		String userWord;
 		System.out.println("Enter the word: ");
-		userWord=scan.next();
-		
-		
+		userWord = scan.next();
 
 	}
 
