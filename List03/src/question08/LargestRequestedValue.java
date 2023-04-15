@@ -23,7 +23,7 @@ public class LargestRequestedValue {
 	}
 
 	public static void main(String[] args) {
-		
+
 		int vectorSize;
 		int userKEsimo;
 		Scanner scan = new Scanner(System.in);

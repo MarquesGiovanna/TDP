@@ -3,7 +3,7 @@ package question09;
 import java.util.Scanner;
 
 public class LowestRequestedValue {
-	
+
 	public static int lowestValue(int vector[], int kEsimo) {
 
 		int aux;
@@ -23,7 +23,7 @@ public class LowestRequestedValue {
 	}
 
 	public static void main(String[] args) {
-		
+
 		int vectorSize;
 		int userKEsimo;
 		Scanner scan = new Scanner(System.in);

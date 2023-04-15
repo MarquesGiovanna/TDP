@@ -2,35 +2,34 @@ package question13;
 
 import java.util.Scanner;
 
-
 public class SearchForEvents {
 
 	public static int[] searchEvents(int vectorOne[], int vectorTwo[]) {
 
-		int counter=0;
-		int vectorResultIndice=0;
+		int vectorResultSize = 0;
+		int vectorResultIndice = 0;
+
 		for (int i = 0; i < vectorOne.length; i++) {
-			for (int j = i; j < vectorOne.length; j++) {
+			for (int j = 0; j < vectorOne.length; j++) {
 
 				if (vectorOne[i] == vectorTwo[j]) {
-					counter++;
+					vectorResultSize++;
 
 				}
 			}
 		}
-		int vectorResult[] = new int[counter];
+
+		int vectorResult[] = new int[vectorResultSize];
+
 		for (int i = 0; i < vectorOne.length; i++) {
-			for (int j = i; j < vectorOne.length; j++) {
+			for (int j = 0; j < vectorOne.length; j++) {
 
 				if (vectorOne[i] == vectorTwo[j]) {
-					vectorResult[vectorResultIndice]=vectorOne[i];
+					vectorResult[vectorResultIndice] = vectorOne[i];
 					vectorResultIndice++;
 
 				}
 			}
-		}
-		for (int i = 0; i < vectorOne.length; i++) {
-			System.out.println("element "+(i+1)+": "+vectorResult[i]);
 		}
 
 		return vectorResult;
@@ -49,15 +48,21 @@ public class SearchForEvents {
 		for (int i = 0; i < userVectorOne.length; i++) {
 			System.out.println("Enter the vector one element " + (i + 1) + ":");
 			userVectorOne[i] = scan.nextInt();
-			
+
 		}
 		for (int i = 0; i < userVectorOne.length; i++) {
-			
+
 			System.out.println("Enter the vector two element " + (i + 1) + ":");
 			userVectorTwo[i] = scan.nextInt();
 		}
-		searchEvents(userVectorOne,userVectorTwo);
-		
+		int vectorResult[] = new int[searchEvents(userVectorOne, userVectorTwo).length];
+		vectorResult = searchEvents(userVectorOne, userVectorTwo);
+
+		for (int i = 0; i < vectorResult.length; i++) {
+
+			System.out.println(vectorResult[i]);
+
+		}
 
 	}
 
