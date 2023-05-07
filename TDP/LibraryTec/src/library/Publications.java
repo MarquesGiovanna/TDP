@@ -1,4 +1,5 @@
 package library;
+import java.util.ArrayList;
 
 public abstract class Publications {
 
@@ -6,7 +7,7 @@ public abstract class Publications {
 	public String autor;
 	public int publicationYear;
 	public int availableAmount;
-	public Costumer costumer;
+	public ArrayList<Costumer> costumers;
 	public Boolean isBook;
 	public Boolean isArticle;
 	public Boolean isMagazine;
@@ -21,6 +22,19 @@ public abstract class Publications {
 		isArticle=false;
 		isMagazine=false;
 		
+	}
+
+	public int validatingPublication(Publications publication) {
+		int returne=0;
+		if(publication.isBook==true)
+			returne=5;
+		else if (publication.isArticle==true)
+			returne=6;
+		else if(publication.isMagazine==true)
+			returne= 7;
+		else 
+			returne=0;
+		return returne;
 	};
 	
 	

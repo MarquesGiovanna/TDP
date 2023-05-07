@@ -6,10 +6,14 @@ import java.util.Scanner;
 
 public class Menu {
 	Scanner scan = new Scanner(System.in);
+	Report report = new Report();
+	Library library = new Library();
+	Loan loaned = new Loan();
 
 	public boolean menu(int option, ArrayList<Costumer> register, ArrayList<Publications> publication) {
 
 		int aux;
+		String name;
 		switch (option) {
 		case 1:
 			System.out.println("1 - Costumer\n2 - Publication");
@@ -32,81 +36,59 @@ public class Menu {
 			publicationName = scan.toString();
 			publicationName.toUpperCase();
 			loan(enrollment, publicationName, register, publication);
-		
-		case 4:
-			
-			System.out.println("\nBooks:");
-			for(int i=0;i<publication.size();i++) {
-				Publications publi=publication.get(i);
-				if(publi.isBook==true) {
-					System.out.println((i+1)+" - "+publi.title+"; "+publi.publicationYear+"; "+publi.autor+"; "+publi.availableAmount);
-				}
-			}
-			System.out.println("\nArticles:");
-			for(int i=0;i<publication.size();i++) {
-				Publications publi=publication.get(i);
-				if(publi.isArticle==true) {
-					System.out.println((i+1)+" - "+publi.title+"; "+publi.publicationYear+"; "+publi.autor+"; "+publi.availableAmount);
-				}
-			}
-			System.out.println("\nMagazines:");
-			for(int i=0;i<publication.size();i++) {
-				Publications publi=publication.get(i);
-				if(publi.isMagazine==true) {
-					System.out.println((i+1)+" - "+publi.title+"; "+publi.publicationYear+"; "+publi.autor+"; "+publi.availableAmount);
-				}
-			}
-			break;
-		
-		case 5:
-			System.out.println("\nStudent:");
-			for(int i=0;i<register.size();i++) {
-				Costumer publi=register.get(i);
-				if(publi.isStudent==true) {
-					System.out.println((i+1)+" - "+publi.enrollment+"; "+publi.name+"; "+publi.tps+"; ");
-				}
-			}
-			System.out.println("\nTeacher:");
-			for(int i=0;i<register.size();i++) {
-				Costumer publi=register.get(i);
-				if(publi.isTeacher==true) {
-					System.out.println((i+1)+" - "+publi.enrollment+"; "+publi.name+"; "+publi.tps+"; ");
-				}
-			}
-			System.out.println("\nServant:");
-			for(int i=0;i<register.size();i++) {
-				Costumer publi=register.get(i);
-				if(publi.isServant==true) {
-					System.out.println((i+1)+" - "+publi.enrollment+"; "+publi.name+"; "+publi.tps+"; ");
-				}
-			}
-		}
-		
 
-		return false;
+			return true;
+		case 4:
+
+			report.booksReport(publication);
+			report.articleReport(publication);
+			report.magazinesReport(publication);
+			return true;
+
+		case 5:
+			report.studentReport(register);
+			report.servantReport(register);
+			report.teacherReport(register);
+			return true;
+
+		case 6:
+			System.out.println("Enter the enrollment:");
+			aux = scan.nextInt();
+			int indice = library.checkExistenceCostumer(register, aux);
+			if (indice != -1) {
+				report.costumerConsulte(register.get(indice));
+			}
+			return true;
+
+		case 7:
+			System.out.println("Enter the publication title:");
+			name = scan.toString();
+			name.toUpperCase();
+			int ind = library.checkExistencePublication(publication, name);
+			System.out.println("Title: " + publication.get(ind).title + " - Author: " + publication.get(ind).autor
+					+ " - Year: " + publication.get(ind).publicationYear + " - Amount: "
+					+ publication.get(ind).availableAmount);
+
+			return true;
+
+		default:
+			return false;
+		}
+
 	};
 
-	private void loan(int enrollment, String publicationName, ArrayList<Costumer> register,
-			ArrayList<Publications> publication) {
+	
 
-		int auxCostumer = 0;
-		int auxPublication = 0;
-		Boolean available = false;
-		
-
-		for (int i = 0; i < register.size(); i++) {
-			if (register.get(i).enrollment == enrollment)
-				auxCostumer = i;
-			if (publication.get(i).title == publicationName && publication.get(i).availableAmount != 0)
-				available = true;
-				auxPublication = i;
-		}
-		
-		
-		
-		
-		
-		
+	private void loan(int enrollment, String publicationName, ArrayList<Costumer> register, ArrayList<Publications> publication) {
+		int indiceCostumer=library.checkExistenceCostumer(register, enrollment);
+		int indicePublication=library.checkExistencePublication(publication, publicationName);
+		int existenceCondition = indiceCostumer+indicePublication;
+		Boolean tpsCostumerOrDonate = register.get(indiceCostumer).tps%50==register.get(indiceCostumer).donates;
+		Boolean availableAmoun=publication.get(indicePublication).availableAmount>0;
+		if(existenceCondition>-1&&(tpsCostumerOrDonate&&availableAmoun)==true) {
+			loaned.makeLoan(register.get(indiceCostumer), publication.get(indicePublication));
+		}else
+			System.out.println("Impossible to do loan. Chech the existence of Costumer or Publication");
 	}
 
 	public void costumerIs(int option, ArrayList<Costumer> type) {

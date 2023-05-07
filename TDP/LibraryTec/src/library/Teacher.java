@@ -7,12 +7,5 @@ public class Teacher extends Costumer{
 		this.isTeacher=true;
 	}
 	
-public Boolean validatingLoan(Teacher teacher) {
-		
-		if(teacher.loanedBooks<10&&teacher.tps<50)
-			return true;
-		else
-			return false;
-	};
 	
 }

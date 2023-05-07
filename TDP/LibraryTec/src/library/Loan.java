@@ -1,48 +1,32 @@
 package library;
+
 import java.util.ArrayList;
 
 public class Loan {
-	
-	
-	public void makeLoanStudent(Student student, Publications publication) {
-		Boolean aux = student.validatingLoan(student)==true&&publication.availableAmount>0;
-		storeInfo= new RegisterLoan(student, publication);
-		if(aux==true) {
-			student.tps+=10*(1+student.discount(publication));
-			publication.availableAmount-=1;
-			publication.costumer=student;
-		}else {
-			System.out.println("Impossible to make the loan. Check option 6 or 7");
-		}
-		
+
+	public Costumer costumer;
+	public Publications publication;
+
+	public void makeLoan(Costumer costumer, Publications publication) {
+		int checkUser = this.costumer.validatingCostumer(costumer);
+		int checkPublication = this.publication.validatingPublication(publication);
+		Boolean conditionStudent = costumer.loanedPublications.size() < 5;
+		Boolean conditionServant = costumer.loanedPublications.size() < 7;
+		Boolean conditionTeacher = costumer.loanedPublications.size() < 10;
+		if (checkUser * checkPublication == checkPublication && conditionStudent == true) {
+			costumer.tps += 10 * (1 + costumer.discount(publication));
+			costumer.loanedPublications.add(publication);
+			publication.costumers.add(costumer);
+		} else if (checkUser * checkPublication == 2 * checkPublication && conditionTeacher == true) {
+			costumer.tps += 25;
+			costumer.loanedPublications.add(publication);
+			publication.costumers.add(costumer);
+		} else if (checkUser * checkPublication == 3 * checkPublication && conditionServant == true) {
+			costumer.tps += 15;
+			costumer.loanedPublications.add(publication);
+			publication.costumers.add(costumer);
+		} else
+			System.out.println("Impossible to make the loan!");
 	}
-	
-	public void makeLoanTeacher(Teacher teacher, Publications publication) {
-		Boolean aux = teacher.validatingLoan(teacher)==true&&publication.availableAmount>0;
-		storeInfo= new RegisterLoan(teacher, publication);
-		if(aux==true&&publication.isBook==true) {
-			teacher.tps+=25;
-			publication.availableAmount-=1;
-			listLoan.add(storeInfo);
-		}else
-			System.out.println("Impossible to make the loan. Check option 6 or 7");
-	}
-	
-	public void makeLoanServant(Servant servant, Publications publication) {
-		Boolean aux = servant.validatingLoan(servant)==true&&publication.availableAmount>0;
-		storeInfo= new RegisterLoan(servant, publication);
-		if(aux==true&&publication.isBook==true) {
-			servant.tps+=15;
-			publication.availableAmount-=1;
-			listLoan.add(storeInfo);
-		}else
-			System.out.println("Impossible to make the loan. Check option 6 or 7");
-	}
-	
-	
-	public void printReportLoan(ArrayList<RegisterLoan> register) {
-		for(int i=0;i<register.size();i++) {
-			System.out.println(register.get(i));
-		}
-	}
+
 }
