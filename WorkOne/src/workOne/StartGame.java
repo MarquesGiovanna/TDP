@@ -21,7 +21,7 @@ public class StartGame {
 		p.showBoard();
 		
 		 do{
-			whatMoviment(p.cellsList);
+			p.cellsList = whatMoviment(p.cellsList, boardWidth);
 			p.showBoard();
 		}while(false);
 		
@@ -29,18 +29,19 @@ public class StartGame {
 		
 	}
 
-	private void whatMoviment(ArrayList<Cells> cellsList) {
+	private ArrayList<Cells> whatMoviment(ArrayList<Cells> cellsList, int boardWidth2) {
 		System.out.println("Digite um valor\nNEGATIVO para RETROCEDER\nPOSITIVO para AVANÇAR\nZERO para permancer");
 		System.out.println("quantas celulas o bispo ira andar");
-		int quantasCelulas=scan.nextInt();
+		int movimento=scan.nextInt();
+		int quantasCelulas=boardWidth*movimento;
 		Cells position;
 		for(Cells i:cellsList) {
 			if(i.icon=="B") {
-					Double novaPosicao;
-					novaPosicao=i.robo.forward(quantasCelulas)*Math.sqrt(cellsList.size());
-					int posicao=novaPosicao.intValue();
-					cellsList.get(posicao).icon="B";
-					cellsList.get(posicao).robo=i.robo;
+					int id;
+					id=(i.id-quantasCelulas);
+					id-=1;
+					cellsList.get(id).icon="B";
+					cellsList.get(id).robo=i.robo;
 					i.icon="-";
 					i.robo=null;
 				
@@ -48,5 +49,7 @@ public class StartGame {
 		
 		
 		}
+		return cellsList;
 	}
+	
 }

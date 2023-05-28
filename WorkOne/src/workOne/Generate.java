@@ -23,32 +23,32 @@ public class Generate {
 
 	public void generateRobot(int i, int width, ArrayList<Cells> cellsList) {
 		ArrayList <Robot> robots = new ArrayList<>();
-		aux = random.nextInt(cellsList.size());
+		aux = random.nextInt(0,cellsList.size()-1);
 		robots.add(null);
 		walkerRobot walker = new walkerRobot(1, "walkerRobot", aux, width, cellsList.get(aux));
 		cellsList.get(aux).robo=walker;
 		
-		aux = random.nextInt(cellsList.size());
+		aux = random.nextInt(0,cellsList.size()-1);
 		Pawn pawn = new Pawn(2, "pawn", aux, width, cellsList.get(aux));
 		cellsList.get(aux).robo=pawn;
 
-		aux = random.nextInt(cellsList.size());
+		aux = random.nextInt(0,cellsList.size()-1);
 		Rook rook = new Rook(3, "rook", aux, width, cellsList.get(aux));
 		cellsList.get(aux).robo=rook;
 
-		aux = random.nextInt(cellsList.size());
+		aux = random.nextInt(0,cellsList.size()-1);
 		Bishop bishop = new Bishop(4, "bishop", aux, width, cellsList.get(aux));
 		cellsList.get(aux).robo=bishop;
 		
-		aux = random.nextInt(cellsList.size());
+		aux = random.nextInt(0,cellsList.size()-1);
 		Knight knight = new Knight(5, "knight", aux, width, cellsList.get(aux));
 		cellsList.get(aux).robo=knight;
 		
-		aux = random.nextInt(cellsList.size());
+		aux = random.nextInt(0,cellsList.size()-1);
 		King king = new King(6, "king", aux, width, cellsList.get(aux));
 		cellsList.get(aux).robo=king;
 
-		aux = random.nextInt(cellsList.size());
+		aux = random.nextInt(0,cellsList.size()-1);
 		Queen queen = new Queen(7, "queen", aux, width, cellsList.get(aux));
 		cellsList.get(aux).robo=queen;
 		
