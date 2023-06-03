@@ -6,7 +6,6 @@ public abstract class Robot extends Coordinates implements RobotMovement {
 
 	public int id;
 	public String name;
-	public Plane plane;
 	public ArrayList<Integer> positions = new ArrayList<>();
 	public ArrayList<Integer> score = new ArrayList<>();
 
@@ -14,30 +13,35 @@ public abstract class Robot extends Coordinates implements RobotMovement {
 		this.id = id;
 		this.name = name;
 		this.positionX = position / planeWidthSize;
-		this.positionY = (position % planeWidthSize) - 1;
-
-//		Cells aux = null;
-//		for (int i = 0; i < plane.cellsList.size(); i++) {
-//			aux = plane.cellsList.get(i);
-//			if (aux.positionX == positionX && aux.positionY == positionY) {
-//				aux.robo = this;
-//			}
-//		}
+		this.positionY = (position % planeWidthSize);
+		this.positions.add(cell.id);
 	}
 
-//	public void moverEsquerda() {
-//		for (int i = 0; i < plane.cellsList.size(); i++) {
-//
-//			if (plane.cellsList.get(i).robo != null) {
-//				plane.cellsList.get(i).robo = null;
-//				plane.cellsList.get(i - 1).robo = this;
-//			}
-//		}
-//
-//	}
-//
-//	public int moverDireita() {
-//		return positionX + 1;
-//	}
+	public Integer hasCharacter(Cells newCell) {
 
+		if (newCell.robo != null && newCell.robo.icon == "&")
+			return 10;
+		if (newCell.robo != null && newCell.robo.icon == "#")
+			return -15;
+		return 0;
+	}
+
+	public int printScore() {
+		int scoreSum = 0;
+		for (int i : score) {
+			scoreSum += i;
+		}
+		return scoreSum;
+
+	}
+
+	public void printPosition(int width) {
+		for (int i : positions) {
+			int X = i / width;
+			int Y = i % width;
+			System.out.println("X: " + X + " Y: " + Y);
+		}
+		System.out.println();
+
+	}
 }
