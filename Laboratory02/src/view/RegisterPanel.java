@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.BevelBorder;
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -43,6 +44,8 @@ public class RegisterPanel extends JPanel {
 		JTextField userName = new JTextField();
 		userName.setBorder(new BevelBorder(BevelBorder.LOWERED));
 		userName.setBounds(10, 5, 400, 35);
+		userName.setBackground(Color.gray);
+		userName.setBorder(BorderFactory.createTitledBorder("name"));
 
 		JTextField userCPF = new JTextField();
 		userCPF.setBorder(new BevelBorder(BevelBorder.LOWERED));
