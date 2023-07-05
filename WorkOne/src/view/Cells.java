@@ -28,7 +28,7 @@ public class Cells extends JPanel {
 		this.panelGame = panelGame;
 		icon = " ";
 
-		click();
+		click(this);
 		if ((positionX + positionY) % 2 == 0) {
 			setBackground(Color.WHITE);
 			label.setForeground(Color.BLACK);
@@ -43,7 +43,7 @@ public class Cells extends JPanel {
 		robo = null;
 	}
 
-	public void click() {
+	public void click(Cells cell) {
 		addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -57,38 +57,30 @@ public class Cells extends JPanel {
 			@Override
 			public void mouseExited(MouseEvent e) {
 				super.mouseExited(e);
-				if (robo != null && panelGame.p.clicked == false) {
+				if (robo != null && panelGame.clicked == false) {
 					robo.notShowPossibilities(id, panelGame.p.cellsList);
 				}
 			}
-
 			@Override
 			public void mouseReleased(MouseEvent e) {
 				super.mouseClicked(e);
-				if (!panelGame.p.clicked) {
-					panelGame.p.clicked = true;
+				if (!panelGame.clicked) {
+					panelGame.clicked = true;
 					robo.showPossibilities(id, panelGame.p.cellsList);
-					panelGame.p.clickId = id;
-				} else if (panelGame.p.clicked && panelGame.p.clickId != id) {
-					if (panelGame.p.cellsList.get(panelGame.p.clickId).robo.forwardOrBackward(panelGame.p.clickId,
-							panelGame.p.cellsList, id))
-						panelGame.p.cellsList.get(panelGame.p.clickId).robo.score.add(temPersonargem());
-					panelGame.scoreOverall = panelGame.p.scoreOverall;
-					panelGame.overallScore.setVisible(true);
-					panelGame.p.cellsList.get(id).exchangeCell(panelGame.p.cellsList.get(panelGame.p.clickId));
-					panelGame.p.clicked = false;
+					panelGame.clickId = id;
+
+				} else if (panelGame.clicked && panelGame.clickId != id) {
+					panelGame.movimentoRobo(cell);
 				} else {
-					panelGame.p.clicked = false;
+					panelGame.clicked = false;
 					robo.notShowPossibilities(id, panelGame.p.cellsList);
 				}
-//				robo.forwardOrBackward(id, panelGame.p.cellsList, 8);
 			}
-
 		});
 
 	}
 
-	public int temPersonargem() {
+	public int temPersonagem() {
 		if (this.icon == "&")
 			return 10;
 		if (this.icon == "#")

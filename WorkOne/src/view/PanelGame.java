@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,7 +16,7 @@ import controller.NewPosition;
 public class PanelGame extends JPanel {
 
 	Plane p;
-	public ArrayList<String> usersNames = new ArrayList<>();
+	public ArrayList<String> usersNames;
 	public int scoreOverall = 0;
 	public int bug = 0;
 	public int student = 0;
@@ -25,16 +26,16 @@ public class PanelGame extends JPanel {
 	JButton check;
 	JButton nextMove;
 	JButton exit;
+	public int clickId = -1;
+	public Boolean clicked = false;
 	public int mouseClicks;
 	public Color corRobo;
-	public ArrayList<NewPosition> positions;
-	public NewPosition positionTemp;
+	public JFrame frame;
 
-	public PanelGame() {
-		positions = new ArrayList<>();
-		positionTemp = new NewPosition();
-		positionTemp.icon = " ";
-		positionTemp.id = 0;
+	public PanelGame(JFrame frame) {
+		this.frame=frame;
+		usersNames = new ArrayList<>();
+		
 		p = new Plane(this);
 		setBounds(20, 75, 860, 615);
 		setBackground(Color.GREEN);
@@ -62,15 +63,7 @@ public class PanelGame extends JPanel {
 		check.setBackground(Color.GREEN);
 		check.setVisible(true);
 		add(check);
-		check.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				for (NewPosition position : positions) {
-					System.out.println("Robo: " + position.icon + " id: " + position.id);
-				}
-				super.mouseClicked(e);
-			}
-		});
+			
 
 		nextMove = new JButton("NEXT MOVE");
 		nextMove.setBounds(596, 275, 100, 30);
@@ -82,9 +75,31 @@ public class PanelGame extends JPanel {
 		exit.setBounds(596, 310, 100, 30);
 		exit.setBackground(Color.GREEN);
 		exit.setVisible(true);
+		exit.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				super.mouseClicked(e);
+				closeFrame();
+			}
+		});
 		add(exit);
-
 		setVisible(false);
+	}
+	
+	public void closeFrame() {
+		frame.dispose();
+		
+	}
+
+	public void movimentoRobo(Cells cell) {
+		if (p.cellsList.get(clickId).robo.forwardOrBackward(clickId,p.cellsList, cell.id)) {
+			p.cellsList.get(clickId).robo.score.add(cell.temPersonagem());
+			scoreOverall += cell.temPersonagem();
+			overallScore.setText("score: " + scoreOverall);
+			overallScore.setVisible(true);
+		}
+		p.cellsList.get(cell.id).exchangeCell(p.cellsList.get(clickId));
+		clicked = false;
 	}
 
 }

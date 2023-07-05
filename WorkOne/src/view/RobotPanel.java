@@ -72,16 +72,14 @@ public class RobotPanel extends JPanel {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if (panelGame.mouseClicks% 2 == 0) {
+				
 					cell = panelGame.p.findRobot(icon);
 					cell.border(cor);
 					button.setBackground(cor);
+					cell.robo.showPossibilities(cell.id, panelGame.p.cellsList);
 					panelGame.mouseClicks = 1;
 					panelGame.corRobo = cor;
-				} else {
-					JOptionPane.showMessageDialog(null, "choose a position on the board");
-					panelGame.mouseClicks = 0;
-				}
+				
 				super.mouseClicked(e);
 			}
 

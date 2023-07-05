@@ -27,8 +27,6 @@ public class Plane extends JPanel {
 	public int aux;
 	Random random = new Random();
 	Scanner scan = new Scanner(System.in);
-	Boolean clicked = false;
-	public int clickId = -1;
 	public int contClicks = 0;
 	public Color colorRobo;
 	public int scoreOverall;
@@ -46,7 +44,6 @@ public class Plane extends JPanel {
 		scoreOverall = sumScore(robots);
 
 		setVisible(true);
-
 	}
 	
 	
@@ -125,11 +122,13 @@ public class Plane extends JPanel {
 		for (int i = 0; i < cellsList.size() / 8; i++) {
 			aux = initialPosition();
 			cellsList.get(aux).robo = new Student(i + 1, "Student" + i, aux, width, cellsList.get(aux));
-
+			cellsList.get(aux).icon="&";
+			System.out.println(aux +"stud");
 
 			aux = initialPosition();
 			cellsList.get(aux).robo = new Bugs(i + 1, "Bugs" + i, aux, width, cellsList.get(aux));
-
+			cellsList.get(aux).icon="#";
+			System.out.println(aux +"bug");
 		}
 	}
 

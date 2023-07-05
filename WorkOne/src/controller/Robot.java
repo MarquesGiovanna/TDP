@@ -8,14 +8,17 @@ public abstract class Robot extends Coordinates implements RobotMovement {
 
 	public int id;
 	public String name;
-	public ArrayList<Integer> positions = new ArrayList<>();
-	public ArrayList<Integer> score = new ArrayList<>();
+	public ArrayList<Integer> positions;
+	public ArrayList<Integer> score;
 	public String icon;
 
 	public Robot(int id, String name, int position, int planeWidthSize, Cells cell) {
 		this.id = id;
 		this.name = name;
+		score = new ArrayList<>();
+		positions = new ArrayList<>();
 		this.positions.add(cell.id);
+		
 	}
 
 

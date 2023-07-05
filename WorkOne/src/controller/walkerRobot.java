@@ -19,12 +19,6 @@ public class walkerRobot extends Robot implements RobotMovement {
 		cell.icon = this.icon;
 	}
 
-	public int numberOfPlaces;
-
-	public void action() {
-
-	}
-
 	@Override
 	public boolean forwardOrBackward(int atualId, ArrayList<Cells> cellsList, int newId) {
 		showPossibilities(atualId,cellsList);
@@ -49,7 +43,6 @@ public class walkerRobot extends Robot implements RobotMovement {
 				Border margin = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 				Border colorBorder = BorderFactory.createEtchedBorder(Color.blue, Color.blue);
 				cells.setBorder(BorderFactory.createCompoundBorder(margin, colorBorder));
-				System.out.println(cells.id);
 			}
 		}
 		return 0;

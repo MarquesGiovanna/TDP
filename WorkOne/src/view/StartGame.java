@@ -18,7 +18,7 @@ public class StartGame extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		//inicialização dos atributos
-		board = new PanelGame();
+		board = new PanelGame(this);
 		upper = new UpperPanel(board);
 		
 		add(upper);
